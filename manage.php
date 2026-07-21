@@ -58,7 +58,9 @@ echo $OUTPUT->heading(get_string('enrolusers', 'enrol'));
 
 if ($enrolid > 0) {
     $br = '<br>';
-    $current = get_enrolled_users($context, '', 0, 'u.id', 'id', 0, 0, true);
+    // GCHLOL NL: Helper to filter enrolled users based on existing user lookup flag.
+    $existing = optional_param('existing', 0, PARAM_BOOL);
+    $current = enrol_coursecompleted\local\enrol_helper::get_enrolled_users($context, $existing ? $instance->id : 0);
     $candidates = enrol_coursecompleted_plugin::get_candidates($instance->customint1);
     if ($action === 'enrol') {
         require_sesskey();
@@ -87,6 +89,8 @@ if ($enrolid > 0) {
         }
         if (count($allusers) > 0) {
             $link = new \moodle_url($PAGE->url, ['enrolid' => $enrolid, 'action' => 'enrol', 'sesskey' => sesskey()]);
+            // GCHLOL NL: Pass through 'existing'.
+            $link->param('existing', $existing);
             echo $OUTPUT->confirm(
                 implode(', ', $allusers),
                 new \single_button($link, get_string('manual:enrol', 'enrol_manual')),

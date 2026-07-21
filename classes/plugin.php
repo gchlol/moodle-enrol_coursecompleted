@@ -171,6 +171,9 @@ class enrol_coursecompleted_plugin extends enrol_plugin {
             $managelink = new moodle_url('/enrol/coursecompleted/manage.php', ['enrolid' => $instance->id]);
             $icon = new pix_icon('t/enrolusers', get_string('enrolusers', 'enrol_manual'), 'core', ['class' => 'iconsmall']);
             $icons[] = $OUTPUT->action_icon($managelink, $icon);
+
+            // GCHLOL NL: Add 'enrol existing users' action.
+            $icons[] = \enrol_coursecompleted\local\enrol_helper::get_action_icon((int)$instance->id);
         }
         return array_merge(parent::get_action_icons($instance), $icons);
     }
