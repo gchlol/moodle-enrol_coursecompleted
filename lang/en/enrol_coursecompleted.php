@@ -86,3 +86,6 @@ Congratulations!
 
 After successfully completing {$a->completed}, you are now automatically enrolled in the following course {$a->coursename}.';
 $string['willbeenrolled'] = 'You will be enrolled in this course when you complete course {$a}';
+
+// GCH LOL Strings.
+$string['enrolusersall'] = 'Enrol users, including already enrolled';
